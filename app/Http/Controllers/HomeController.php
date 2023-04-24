@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class homeController extends Controller
 {
     public function index()
-    {
-        $loggedInUserId = Auth::guard('account')->user()->id;
-        $account_access = Account_Access::all();    
-        return view('themes.default.home', compact('account_access'));
+    {  
+        return view('themes.default.home');
     }
 }
