@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\Models\Register;
+Use App\Models\Account;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
-
-
+use PhpParser\Node\Stmt\TryCatch;
 
 class registerController extends Controller
 {
@@ -25,23 +24,11 @@ class registerController extends Controller
             'password_confirmation' => 'required|same:password'
         ]);
 
-
-        $salt = random_bytes(32);
-        $register = new Register();
-        $verifier = $register->calculate_verifier($request->get('name'), $request->get('password'), $salt);
-
-        $register = new Register([
+        $payload = new Account([
             'username' => $request->get('name'),
+            'password' => $request->get('password'),
             'email' => $request->get('email'),
-            'salt' => $salt,
-            'verifier' => $verifier
         ]);
-
-        try {
-            $register->save();
-            return redirect('/')->with('success', 'Account created successfully!');
-        } catch (\Exception $e) {
-            return redirect('/register')->with('error', 'Something went wrong!');
-        }
+        $account = Account::register($payload);
     }
 }

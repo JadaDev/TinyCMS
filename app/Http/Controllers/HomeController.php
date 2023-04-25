@@ -10,6 +10,7 @@ class homeController extends Controller
 {
     public function index()
     {  
-        return view('themes.default.home');
+        $account = auth()->guard('account')->user();
+        return view('themes.default.home', compact('account'));
     }
 }
