@@ -6,6 +6,7 @@ use App\Models\Login;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use Illuminate\Foundation\Auth\User as Authentication;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -20,7 +21,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
          $request->validate([
-            'username' => 'required',
+            'username' => 'required|string',
             'password' => 'required',
          ]);
 
@@ -28,14 +29,20 @@ class LoginController extends Controller
             'username' => $request->get('username'),
             'password' => $request->get('password'),
          ]);
-        $account = Account::login($payload);
-        
+
+        try{
+            $account = Account::login($payload);
+            log::info('User Logged In: ' . $account->username);
+        } catch (\Exception $e) {
+            return redirect('/login')->with('error', 'Invalid username or password');
+        }
+        return redirect('/')->with('success', 'Logged in successfully!');
     }
 
     public function logout()
     {
         auth()->guard('account')->logout();
-        return redirect('/login');
+        return redirect('/');
   
     }
 

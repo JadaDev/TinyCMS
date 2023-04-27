@@ -19,15 +19,15 @@ use App\Http\Controllers\passwordController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/login' , [LoginController::class, 'index']);
-Route::post('/login' , [LoginController::class, 'login']);
+Route::get('/login' , [LoginController::class, 'index'])->name('login.index');
+Route::post('/login' , [LoginController::class, 'login'])->name('login.login');
 
 Route::get('/changepassword', [passwordController::class, 'index']);
-Route::post('/changepassword/store', [passwordController::class, 'changepassword']);
+Route::post('/changepassword', [passwordController::class, 'changepassword']);
 
 Route::post('/logout' , [LoginController::class, 'logout']);
 
 route::group(['prefix' => 'register'], function () {
-    Route::get('/', [RegisterController::class, 'index']);
+    Route::get('/', [RegisterController::class, 'index'])->name('register.index');
     Route::post('/store', [RegisterController::class, 'store']);
 });

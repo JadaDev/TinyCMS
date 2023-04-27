@@ -1,7 +1,17 @@
 @extends('themes.default.layout.app')
-
 @section('content')
     <h1>Login</h1>
+    <p>This is the Login page</p>
+
+@if(session('success'))
+    {{session('success')}}
+@endif
+
+@if($errors->any())
+    @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+    @endforeach
+@endif
 
     <form action="/login" method="POST">
         @csrf
