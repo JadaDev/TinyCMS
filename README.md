@@ -1,2 +1,2 @@
 ## About TinyCMS
-TinyCMS is going to be a multi emulator support CMS for World of Warcraft Emulation. Feel free to follow our progress right here on our github page. This is a work in progress and is not recommended for production right now.
+TinyCMS is a content management system (CMS) designed for World of Warcraft emulation, offering support for multiple emulators and built using the Laravel framework. Keep up to date with our progress by following our GitHub page. Please note that this project is a work in progress (WIP) and currently in its early stages of development; it is not recommended for use in production environments.
